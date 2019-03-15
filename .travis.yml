@@ -8,6 +8,10 @@ services:
 before_install: 
   - docker build -t pavanpagan/react-test -f ./client/Dockerfile.dev ./client
 
+script:
+  - docker run pavanpagan/react-test npm test -- --coverage
+
+
 after_success:
   - docker build -t pavanpagan/multi-client ./client
   - docker build -t pavanpagan/multi-nginx ./nginx
