@@ -6,7 +6,7 @@ services:
   - docker
 
 before_install: 
-  - docker build -t pavanpagan/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t pavanpagan/react-test -f ./client/Dockerfile.dev . ./client
 
 script:
   - echo "script start"
@@ -20,9 +20,10 @@ after_success:
   # log into docker hub
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   #push to docker hub
-  - docker push pavanpagan/multi-client
   - docker push pavanpagan/multi-nginx
   - docker push pavanpagan/multi-server
   - docker push pavanpagan/multi-worker
+  - docker push pavanpagan/multi-client
+
 
 
