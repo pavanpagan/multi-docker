@@ -1,0 +1,21 @@
+sudo: required
+services: 
+  - docker
+
+before_install: 
+  - docker build -t pavanpagan/react-test -f ./client/Dockerfile.dev ./client
+
+after_success:
+  - docker build -t pavanpagan/multi-client ./client
+  - docker build -t pavanpagan/multi-nginx ./nginx
+  - docker build -t pavanpagan/multi-server ./server
+  - docker build -t pavanpagan/multi-worker ./worker
+  # log into docker hub
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  #push to docker hub
+  - docker push pavanpagan/multi-client
+  - docker push pavanpagan/multi-nginx
+  - docker push pavanpagan/multi-server
+  - docker push pavanpagan/multi-worker
+
+
