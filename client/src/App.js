@@ -8,18 +8,17 @@ class App extends Component {
   render() {
     return (
       <Router>
-        
-      <div className="App">
+       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <Link to='/'>Home</Link>
-          <Link to='/otherpage'>OtherPage</Link>
+          {/* <Link to='/'>Home</Link>
+          <Link to='/otherpage'>OtherPage</Link> */}
         </header>
         <div>
            <Route exact path='/' component={Fib}/>
            <Route exact path='/otherpage' component={OtherPage}/>
          </div>
-      </div>
+      </div> 
       </Router>
 
     );
