@@ -24,6 +24,19 @@ after_success:
   - docker push pavanpagan/multi-server
   - docker push pavanpagan/multi-worker
   - docker push pavanpagan/multi-client
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: multi-docker
+  env: MultiDocker-env
+  bucket_name: elasticbeanstalk-us-east-2-423694414493
+  bucket_path: docker_multi
+  on: 
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
+  
 
 
 
