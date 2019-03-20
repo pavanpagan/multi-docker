@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import axios  from 'axios';
+import {Panel,Modal,Button,FormGroup,ControlLabel,FormControl} from 'react-bootstrap';
 
 class Fib extends Component{
 constructor(props)
@@ -10,7 +11,10 @@ constructor(props)
 
         seenIndexes:[],
         values:{},
-        index:''
+        index:'',
+        items:{
+            itemstatus:{value:'available',valid:true}
+        },
 
     }
 }
@@ -56,9 +60,20 @@ renderValues()
 
 async handleSubmit(){
     // event.preventDefault();
-    await axios.post('/api/values/input',{index:this.state.index});
+
+    let data={
+        index:this.state.index,
+        image:this.state.items.itemstatus.value
+    }
+    console.log("called");
+    await axios.post('/api/values/input',{data});
     await this.setState({
-        index:''
+        index:'',
+        items:{
+            itemstatus:{
+                value:''
+            }
+        }
     })
 }
 handleChange(event)
@@ -66,8 +81,36 @@ handleChange(event)
     let e=event.target.value;
     this.setState({
         index:e
+       
     })
 }
+
+handleselectedFile = event => {
+    console.log(event.target.files[0].name);
+    if(event.target.files[0].size < 5263360 && (event.target.files[0].type === 'image/jpg' || event.target.files[0].type === 'image/png' || event.target.files[0].type === 'image/jpeg')){
+        // this.setState({
+        // selectedFile: event.target.files[0],
+        // loaded: 0,
+        // img_error:''
+        // },()=>{
+        //     console.log(this.state)
+        // })
+
+        this.setState({
+            items:{
+                itemstatus:{
+                    value:event.target.files[0].name
+                }
+            }
+        })
+    }
+    else{
+        this.setState({
+            img_error:"Image should be jpg,jpeg and png and maximum size 5MB"
+        })
+    }
+  }
+
 render(){
     return (
         <div>
@@ -80,6 +123,16 @@ render(){
             }
             {/* <h3>Calculated Values:</h3>
             {this.renderValues()} */}
+
+            <div > 
+                                <FormGroup validationState={this.state.items.itemstatus.valid ? 'success': 'error'}>
+                                {/* <ControlLabel> */}
+                                    Item image  <span className="text-danger">*</span>
+                                {/* </ControlLabel> */}
+                                    <input type="file" max-size="5263360"  name="" id="" accept="image/gif, image/jpeg, image/x-png" onChange={this.handleselectedFile}/>
+                                    <span style={{color:'red'}}>{this.state.img_error}</span>
+                                </FormGroup> 
+                            </div>
         </div>
     )
 }
