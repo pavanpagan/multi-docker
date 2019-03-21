@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import axios  from 'axios';
-import {Panel,Modal,Button,FormGroup,ControlLabel,FormControl} from 'react-bootstrap';
-
+// import {Panel,Modal,Button,FormGroup,ControlLabel,FormControl} from 'react-bootstrap';
+let api='http://localhost:5000';
 class Fib extends Component{
 constructor(props)
 {
@@ -125,13 +125,13 @@ render(){
             {this.renderValues()} */}
 
             <div > 
-                                <FormGroup validationState={this.state.items.itemstatus.valid ? 'success': 'error'}>
+                                {/* <FormGroup validationState={this.state.items.itemstatus.valid ? 'success': 'error'}> */}
                                 {/* <ControlLabel> */}
                                     Item image  <span className="text-danger">*</span>
                                 {/* </ControlLabel> */}
                                     <input type="file" max-size="5263360"  name="" id="" accept="image/gif, image/jpeg, image/x-png" onChange={this.handleselectedFile}/>
                                     <span style={{color:'red'}}>{this.state.img_error}</span>
-                                </FormGroup> 
+                                {/* </FormGroup>  */}
                             </div>
         </div>
     )
