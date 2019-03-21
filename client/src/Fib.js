@@ -2,7 +2,13 @@ import React,{Component} from 'react';
 import axios  from 'axios';
 // import {Panel,Modal,Button,FormGroup,ControlLabel,FormControl} from 'react-bootstrap';
 let api='http://localhost:5000';
-const images = importAll(require.context('../../../uploades', false, /\.(png|jpe?g|svg)$/));
+function importAll(r) {
+      let images = {};
+      r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+    console.log(images)
+      return images;
+    }
+const images = importAll(require.context('../uploades', false, /\.(png|jpe?g|svg)$/));
 class Fib extends Component{
 constructor(props)
 {
@@ -122,7 +128,7 @@ render(){
             {
                 this.renderSeenIndexes()
             }
-             <img src={images['images']} alt={'images'}/>
+             <img src={images['images.jpeg']} alt={'images.jpeg'}/>
             {/* <h3>Calculated Values:</h3>
             {this.renderValues()} */}
 
